@@ -41,7 +41,7 @@ WORKDIR /app
 COPY . .
 
 # Construire l'application en utilisant Gradle
-RUN gradle build --no-daemon
+RUN gradle build
 
 # Étape 2 : Exécuter l'application
 FROM openjdk:17-jdk-slim
