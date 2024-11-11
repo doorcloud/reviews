@@ -15,7 +15,7 @@ dependencies {
 }
 
 jar {
-    archiveBaseName = 'monprojet'  // Nom du fichier JAR sans version
+    archiveBaseName = 'reviews'  // Nom du fichier JAR sans version
     archiveVersion = version       // Version définie plus haut
     destinationDirectory = file("$buildDir/libs") // Répertoire de sortie
 }
