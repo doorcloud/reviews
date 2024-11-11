@@ -1,7 +1,21 @@
-allprojects {
-   group = 'org.istio'
-   version = '1.0'
-   repositories {
-     mavenCentral()
-   }
+
+plugins {
+    id 'java' // Active le plugin Java
+}
+
+group = 'org.istio'
+version = '1.0'
+
+repositories {
+    mavenCentral() // Définition du dépôt Maven Central pour les dépendances
+}
+
+dependencies {
+    // Ajoutez vos dépendances ici (par exemple, si vous utilisez Spring Boot, etc.)
+}
+
+jar {
+    archiveBaseName = 'monprojet'  // Nom du fichier JAR sans version
+    archiveVersion = version       // Version définie plus haut
+    destinationDirectory = file("$buildDir/libs") // Répertoire de sortie
 }
