@@ -34,7 +34,7 @@ RUN /opt/ol/wlp/bin/featureUtility installServerFeatures  --acceptLicense /opt/o
     chmod -R g=rwx /opt/ol/wlp/output/defaultServer/
 
 RUN pwd
-RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
+RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
 
 USER 1001
 
