@@ -47,7 +47,7 @@ RUN ls -la build/libs
 RUN ls -la /app/build/libs
 
 # Étape 2 : Exécuter l'application
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-alpine
 
 RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup
 
