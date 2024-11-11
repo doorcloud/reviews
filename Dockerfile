@@ -32,6 +32,10 @@ COPY --from=builder /home/gradle/reviews-wlpcfg/servers/LibertyProjectServer/ /o
 USER 0
 RUN /opt/ol/wlp/bin/featureUtility installServerFeatures  --acceptLicense /opt/ol/wlp/usr/servers/defaultServer/server.xml --verbose && \
     chmod -R g=rwx /opt/ol/wlp/output/defaultServer/
+
+RUN pwd
+RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
+
 USER 1001
 
 ARG service_version
@@ -41,8 +45,7 @@ ENV SERVICE_VERSION=${service_version:-v1}
 ENV ENABLE_RATINGS=${enable_ratings:-false}
 ENV STAR_COLOR=${star_color:-black}
 
-RUN pwd
-RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
+
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://tempo-simplest-distributor.door-tracing.svc.cluster.local:4318"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
