@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-FROM gradle:8.6.0-jdk8-hotspot AS builder
+FROM gradle:6.6.1-jdk11-hotspot AS builder
 
 
 # Not sure why but we need root to build. Ignore lint error, this is for a multistage builder so it doesn't matter.
