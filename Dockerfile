@@ -53,4 +53,6 @@ ENV OTEL_PROPAGATORS="tracecontext"
 
 ENV JAVA_OPTS="-javaagent:/app/opentelemetry-javaagent.jar"
 
-CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+# CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+CMD ["sh", "-c", "/opt/ol/wlp/bin/server run defaultServer"]
+
