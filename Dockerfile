@@ -67,7 +67,7 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 RUN pwd
 # RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
-RUN RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -O opentelemetry-javaagent.jar
+RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -O opentelemetry-javaagent.jar
 USER 1001
 
 ARG service_version
