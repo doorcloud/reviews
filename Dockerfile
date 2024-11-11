@@ -79,13 +79,10 @@ ENV SERVICE_VERSION=${service_version:-v1}
 ENV ENABLE_RATINGS=${enable_ratings:-false}
 ENV STAR_COLOR=${star_color:-black}
 
-
-
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://tempo-simplest-distributor.door-tracing.svc.cluster.local:4318"
-ENV OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="tempo-simplest-distributor.door-tracing.svc.cluster.local:4317"
+ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 ENV OTEL_SERVICE_NAME="kubecon"
 ENV OTEL_LOG_LEVEL="debug"
 ENV OTEL_PROPAGATORS="tracecontext"
-
 
 ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-jar", "/app/app.jar"]
