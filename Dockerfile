@@ -42,6 +42,7 @@ COPY . .
 
 # Construire l'application en utilisant Gradle
 RUN gradle build
+RUN ls -la
 
 # Étape 2 : Exécuter l'application
 FROM openjdk:17-jdk-slim
