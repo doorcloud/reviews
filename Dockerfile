@@ -12,26 +12,55 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-FROM gradle:8.6.0-jdk8 AS builder
+# FROM gradle:8.6.0-jdk8 AS builder
 
 
-# Not sure why but we need root to build. Ignore lint error, this is for a multistage builder so it doesn't matter.
-# hadolint ignore=DL3002
-USER 0
-COPY . /home/gradle
+# # Not sure why but we need root to build. Ignore lint error, this is for a multistage builder so it doesn't matter.
+# # hadolint ignore=DL3002
+# USER 0
+# COPY . /home/gradle
 
-RUN gradle build
+# RUN gradle build
 
+# FROM open-liberty:24.0.0.1-kernel-slim-java17-openj9
+
+# ENV SERVERDIRNAME=reviews
+
+# COPY --from=builder /home/gradle/reviews-wlpcfg/servers/LibertyProjectServer/ /opt/ol/wlp/usr/servers/defaultServer/
+# # Not sure why but we need root to build, but without it buildx cannot get network connectivity. We swap to 1001 later.
+# # hadolint ignore=DL3002
+# USER 0
+# RUN /opt/ol/wlp/bin/featureUtility installServerFeatures  --acceptLicense /opt/ol/wlp/usr/servers/defaultServer/server.xml --verbose && \
+#     chmod -R g=rwx /opt/ol/wlp/output/defaultServer/
+
+# Étape 1 : Construire l'application avec Gradle
+FROM gradle:8.6.0-jdk17 AS builder
+
+# Copier le projet dans le répertoire de travail
+WORKDIR /app
+COPY . .
+
+# Construire l'application en utilisant Gradle
+RUN gradle build --no-daemon
+
+# Étape 2 : Exécuter l'application
 FROM openjdk:17-jdk-slim
+
+RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup
+
+# Copier les fichiers de build de l'étape précédente
+COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
 ENV SERVERDIRNAME=reviews
 
-COPY --from=builder /home/gradle/reviews-wlpcfg/servers/LibertyProjectServer/ /opt/ol/wlp/usr/servers/defaultServer/
-# Not sure why but we need root to build, but without it buildx cannot get network connectivity. We swap to 1001 later.
-# hadolint ignore=DL3002
-USER 0
-RUN /opt/ol/wlp/bin/featureUtility installServerFeatures  --acceptLicense /opt/ol/wlp/usr/servers/defaultServer/server.xml --verbose && \
-    chmod -R g=rwx /opt/ol/wlp/output/defaultServer/
+# Configurer l'utilisateur et les droits
+USER appuser
+
+# Exposer le port de l'application
+EXPOSE 8080
+
+# Démarrer l'application
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 RUN pwd
 RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
