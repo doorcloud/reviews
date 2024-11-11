@@ -65,7 +65,7 @@ USER appuser
 EXPOSE 8080
 
 # Démarrer l'application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 RUN pwd
 # RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
@@ -86,6 +86,6 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 ENV OTEL_SERVICE_NAME="kubecon"
 ENV OTEL_LOG_LEVEL="debug"
 ENV OTEL_PROPAGATORS="tracecontext"
-ENV JAVA_TOOL_OPTIONS="-javaagent:/app/opentelemetry-javaagent.jar"
 
-CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+
+ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-jar", "/app/app.jar"]
