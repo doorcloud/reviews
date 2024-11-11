@@ -56,6 +56,8 @@ COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
 ENV SERVERDIRNAME=reviews
 
+RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -O /app/opentelemetry-javaagent.jar
+
 # Configurer l'utilisateur et les droits
 USER appuser
 
@@ -67,7 +69,7 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 RUN pwd
 # RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
-RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -O /app/opentelemetry-javaagent.jar
+
 USER 1001
 
 ARG service_version
