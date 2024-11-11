@@ -43,7 +43,7 @@ COPY . .
 # Construire l'application en utilisant Gradle
 RUN gradle build
 RUN ls -la
-RUN ls -la /opt/gradle
+RUN ls -la /opt/gradle/reviews-wlpcfg
 
 # Étape 2 : Exécuter l'application
 FROM openjdk:17-jdk-slim
