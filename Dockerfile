@@ -51,6 +51,6 @@ ENV OTEL_SERVICE_NAME="kubecon"
 ENV OTEL_LOG_LEVEL="debug"
 ENV OTEL_PROPAGATORS="tracecontext"
 
-ENV JAVA_OPTS="-javaagent:/app/opentelemetry-instrument.jar"
+ENV JAVA_OPTS="-javaagent:/app/opentelemetry-javaagent.jar"
 
 CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
