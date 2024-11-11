@@ -40,7 +40,7 @@ ENV SERVICE_VERSION=${service_version:-v1}
 ENV ENABLE_RATINGS=${enable_ratings:-false}
 ENV STAR_COLOR=${star_color:-black}
 
-RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar -O /app/opentelemetry-javaagent.jar
+RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o /app/opentelemetry-javaagent.jar
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://tempo-simplest-distributor.door-tracing.svc.cluster.local:4318"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
