@@ -22,7 +22,7 @@ COPY . /home/gradle
 
 RUN gradle build
 
-FROM open-liberty:24.0.0.10-full-java11-openj9
+FROM openjdk:17-jdk-slim
 
 ENV SERVERDIRNAME=reviews
 
