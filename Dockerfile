@@ -41,7 +41,7 @@ WORKDIR /app
 COPY . .
 
 # Construire l'application en utilisant Gradle
-RUN gradle build
+RUN gradle build --no-daemon
 RUN ls -la
 RUN ls -la /opt/gradle/reviews-wlpcfg
 
