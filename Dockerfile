@@ -14,7 +14,6 @@
 
 FROM gradle:8.6.0-jdk8 AS builder
 
-WORKDIR /app
 
 # Not sure why but we need root to build. Ignore lint error, this is for a multistage builder so it doesn't matter.
 # hadolint ignore=DL3002
@@ -42,13 +41,13 @@ ENV SERVICE_VERSION=${service_version:-v1}
 ENV ENABLE_RATINGS=${enable_ratings:-false}
 ENV STAR_COLOR=${star_color:-black}
 
-RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o /app/opentelemetry-javaagent.jar
+RUN curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.29.0/opentelemetry-javaagent.jar -o /opentelemetry-javaagent.jar
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://tempo-simplest-distributor.door-tracing.svc.cluster.local:4318"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 ENV OTEL_SERVICE_NAME="kubecon"
 ENV OTEL_LOG_LEVEL="debug"
 ENV OTEL_PROPAGATORS="tracecontext"
-ENV JAVA_TOOL_OPTIONS="-javaagent:/app/opentelemetry-javaagent.jar"
+ENV JAVA_TOOL_OPTIONS="-javaagent:/opentelemetry-javaagent.jar"
 
 CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
